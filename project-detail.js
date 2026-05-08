@@ -1,6 +1,7 @@
 const detailRoot = document.getElementById("projectDetail");
 const params = new URLSearchParams(window.location.search);
 const project = PROJECTS.find((item) => item.id === params.get("id")) || PROJECTS[0];
+const detailMetricLabel = project.metric || "Stack";
 
 document.title = `${project.name} | Temple Gideon`;
 
@@ -22,7 +23,7 @@ detailRoot.innerHTML = `
         <a class="btn" href="index.html#contact">Contact Me</a>
       </div>
       <div class="detail-metric">
-        <span>${project.metric}</span>
+        <span>${detailMetricLabel}</span>
         <strong>${project.stack.slice(0, 3).join(" + ")}</strong>
       </div>
     </div>

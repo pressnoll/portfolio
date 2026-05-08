@@ -1,3 +1,9 @@
+/* ==========================================================================
+   Design Tokens
+   These CSS variables define the reusable colors, surfaces, and shadow used
+   across the entire portfolio. Changing one value here updates every component
+   that references it with var(...).
+   ========================================================================== */
 :root {
   --ink: #111827;
   --muted: #526071;
@@ -13,16 +19,21 @@
   --shadow: 0 22px 60px rgba(17, 24, 39, 0.16);
 }
 
+/* Makes width and height calculations include padding and borders.
+   This keeps layouts more predictable for every element on the site. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Enables smooth scrolling when navigation links jump to page sections. */
 html {
   scroll-behavior: smooth;
 }
 
+/* Base page styling: resets browser margin, sets the main font and text color,
+   and paints the subtle layered background behind the whole portfolio. */
 body {
   margin: 0;
   font-family: "Sora", sans-serif;
@@ -35,6 +46,10 @@ body {
     linear-gradient(135deg, #fff7ed 0%, #ecfeff 42%, #eef2ff 100%);
 }
 
+/* ==========================================================================
+   Header and Navigation
+   Controls the sticky top bar, brand name, navigation links, and hover colors.
+   ========================================================================== */
 .topbar {
   position: sticky;
   top: 0;
@@ -48,28 +63,38 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
+/* Styles the "Temple Gideon" brand text in the header. */
 .brand {
+  display: inline-block;
   font-weight: 800;
   color: var(--ink);
   text-decoration: none;
+  transform: translate(-70px);
 }
 
+/* Lays out the header navigation links in a horizontal row. */
 nav {
   display: flex;
   gap: 1rem;
 }
 
+/* Default appearance for links inside the navigation. */
 nav a {
   text-decoration: none;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
+/* Shared hover color for navigation links and normal links. */
 nav a:hover,
 a:hover {
   color: var(--rose);
 }
 
+/* ==========================================================================
+   Global Layout Helpers
+   These selectors control the main page flow and reusable section widths.
+   ========================================================================== */
 main {
   width: 100%;
   margin: 0;
@@ -77,17 +102,17 @@ main {
   gap: 1.3rem;
 }
 
+/* Keeps major sections centered and prevents them from touching viewport edges. */
 .page-section {
   width: min(1500px, calc(100% - 6vw));
   margin-inline: auto;
 }
 
-.compact-section {
-  margin-top: -3.6rem;
-  position: relative;
-  z-index: 2;
-}
-
+/* ==========================================================================
+   Home Hero
+   A large first-screen section with background image, dark overlay, headline,
+   summary text, and action buttons.
+   ========================================================================== */
 .hero {
   position: relative;
   min-height: min(780px, calc(100vh - 58px));
@@ -101,6 +126,7 @@ main {
   background: #0f172a;
 }
 
+/* Full-bleed image positioning used by both the home hero and detail hero. */
 .hero-bg,
 .detail-bg {
   position: absolute;
@@ -110,10 +136,12 @@ main {
   object-fit: cover;
 }
 
+/* Slightly boosts the home hero image so it feels more vivid. */
 .hero-bg {
   filter: saturate(1.18) contrast(1.04);
 }
 
+/* Dark readable overlays for hero text on top of images. */
 .hero-overlay,
 .detail-overlay {
   position: absolute;
@@ -123,6 +151,7 @@ main {
     linear-gradient(180deg, rgba(0, 139, 139, 0.2), rgba(245, 158, 11, 0.16));
 }
 
+/* Keeps the hero text above the image and overlay. */
 .hero-content {
   position: relative;
   z-index: 1;
@@ -130,21 +159,24 @@ main {
   max-width: 720px;
 }
 
+/* Wrapper for the hero text stack. Padding is zero because the hero provides it. */
 .hero-copy {
   padding: 0;
 }
 
+/* Small pill label used for role/category labels such as "Machine Learning Engineer". */
 .eyebrow {
   width: fit-content;
   font-family: "JetBrains Mono", monospace;
-  color: #0f766e;
-  background: rgba(240, 253, 250, 0.9);
-  border: 1px solid rgba(153, 246, 228, 0.8);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
   border-radius: 999px;
   margin: 0;
   padding: 0.38rem 0.7rem;
 }
 
+/* Large hero headline on the home page. */
 .hero-copy h1 {
   margin: 0.8rem 0;
   color: white;
@@ -153,6 +185,7 @@ main {
   max-width: 12ch;
 }
 
+/* Supporting copy used in both the home hero and project detail hero. */
 .summary {
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.7;
@@ -160,6 +193,7 @@ main {
   font-size: 1.04rem;
 }
 
+/* Button row used for hero actions and project detail actions. */
 .actions {
   margin-top: 1.2rem;
   display: flex;
@@ -167,6 +201,7 @@ main {
   gap: 0.75rem;
 }
 
+/* Base button/link style for calls to action. */
 .btn {
   border: 1px solid var(--line);
   padding: 0.72rem 1rem;
@@ -178,19 +213,14 @@ main {
   box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
 }
 
+/* Highlighted primary button, used for the most important action. */
 .btn.primary {
   border-color: transparent;
   background: linear-gradient(120deg, var(--teal), var(--blue));
   color: white;
 }
 
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.9rem;
-}
-
-.metrics article,
+/* Shared glass-card styling used by generic panels and project cards. */
 .panel,
 .project-card {
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -200,50 +230,10 @@ main {
   backdrop-filter: blur(12px);
 }
 
-.metrics article {
-  position: relative;
-  overflow: hidden;
-  padding: 1rem;
-  min-height: 136px;
-}
-
-.metrics article::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 5px;
-  background: var(--bar, var(--teal));
-}
-
-.metric-teal {
-  --bar: var(--teal);
-}
-
-.metric-blue {
-  --bar: var(--blue);
-}
-
-.metric-gold {
-  --bar: var(--gold);
-}
-
-.metric-rose {
-  --bar: var(--rose);
-}
-
-.metrics strong {
-  display: block;
-  font-size: 1.12rem;
-  line-height: 1.2;
-  margin-bottom: 0.45rem;
-}
-
-.metrics span {
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-
+/* ==========================================================================
+   About/Profile Section
+   Two-column section with portrait image, about copy, and profile tags.
+   ========================================================================== */
 .about-profile {
   display: grid;
   grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
@@ -251,6 +241,7 @@ main {
   align-items: stretch;
 }
 
+/* Shared card shell for the portrait block and about text block. */
 .profile-image,
 .profile-copy {
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -260,6 +251,7 @@ main {
   backdrop-filter: blur(12px);
 }
 
+/* Portrait container. The background shows while the image loads. */
 .profile-image {
   overflow: hidden;
   min-height: 430px;
@@ -268,6 +260,7 @@ main {
     white;
 }
 
+/* Makes the portrait fill the container and crop neatly from the top center. */
 .profile-image img {
   width: 100%;
   height: 100%;
@@ -276,6 +269,7 @@ main {
   object-position: center top;
 }
 
+/* About text card layout and spacing. */
 .profile-copy {
   padding: clamp(1.2rem, 3vw, 3rem);
   display: flex;
@@ -283,17 +277,20 @@ main {
   justify-content: center;
 }
 
+/* Keeps the about heading compact instead of stretching too wide. */
 .profile-copy h2 {
   max-width: 16ch;
   margin-top: 0.45rem;
 }
 
+/* About paragraph readability. */
 .profile-copy p {
   color: var(--muted);
   line-height: 1.75;
   max-width: 72ch;
 }
 
+/* Flexible row of profile tags below the about copy. */
 .profile-tags {
   display: flex;
   flex-wrap: wrap;
@@ -301,6 +298,7 @@ main {
   margin-top: 0.7rem;
 }
 
+/* Individual profile tag pills such as location and skill labels. */
 .profile-tags span {
   border: 1px solid rgba(17, 24, 39, 0.12);
   border-radius: 999px;
@@ -311,6 +309,10 @@ main {
   padding: 0.36rem 0.62rem;
 }
 
+/* ==========================================================================
+   Section Headers and Filters
+   Used above the project grid for title text and category filter chips.
+   ========================================================================== */
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -319,19 +321,28 @@ main {
   margin-top: 2rem;
 }
 
+/* Shared second-level headings across sections. */
 h2 {
   margin: 0.2rem 0;
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
 }
 
+/* Small uppercase section label above headings. */
 .section-kicker {
   margin: 0;
-  color: var(--teal);
+  color: var(--muted);
   font-family: "JetBrains Mono", monospace;
   font-size: 0.82rem;
   text-transform: uppercase;
 }
 
+/* Compact header used inside content panels such as Skills and Journey. */
+.section-block-head {
+  max-width: 760px;
+  margin-bottom: 1rem;
+}
+
+/* Container for dynamically generated project filter buttons. */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -339,6 +350,7 @@ h2 {
   gap: 0.5rem;
 }
 
+/* Filter chip default state. */
 .chip {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.7);
@@ -349,12 +361,17 @@ h2 {
   font-size: 0.83rem;
 }
 
+/* Active project filter chip. */
 .chip.active {
   background: var(--ink);
   border-color: var(--ink);
   color: white;
 }
 
+/* ==========================================================================
+   Project Grid and Cards
+   Styles the selected-work cards generated by script.js.
+   ========================================================================== */
 .project-grid {
   margin-top: 0.9rem;
   display: grid;
@@ -362,33 +379,31 @@ h2 {
   gap: 1rem;
 }
 
+/* Standard project card layout: image on top, content below. */
 .project-card {
   grid-column: span 4;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 210px auto;
+  grid-template-rows: 220px 1fr;
   transition: transform 180ms ease, box-shadow 180ms ease;
   color: var(--ink);
   text-decoration: none;
   min-height: 100%;
 }
 
-.project-card.featured-card {
-  grid-column: span 8;
-  grid-template-columns: 1.05fr 0.95fr;
-  grid-template-rows: minmax(360px, auto);
-}
-
+/* Lift effect when a user hovers over a project card. */
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 28px 70px rgba(17, 24, 39, 0.2);
 }
 
+/* Image wrapper for project cards, needed for cropping and overlay effects. */
 .project-image {
   position: relative;
   overflow: hidden;
 }
 
+/* Makes project images fill their card area. */
 .project-image img {
   width: 100%;
   height: 100%;
@@ -397,10 +412,12 @@ h2 {
   transition: transform 400ms ease;
 }
 
+/* Subtle zoom on project images when the card is hovered. */
 .project-card:hover .project-image img {
   transform: scale(1.06);
 }
 
+/* Dark gradient over card images so the category badge is readable. */
 .project-image::after {
   content: "";
   position: absolute;
@@ -408,6 +425,7 @@ h2 {
   background: linear-gradient(180deg, transparent 42%, rgba(17, 24, 39, 0.78));
 }
 
+/* Category badge displayed over each project image. */
 .project-image span {
   position: absolute;
   left: 0.75rem;
@@ -416,53 +434,43 @@ h2 {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+
   border-radius: 999px;
   padding: 0.26rem 0.55rem;
   background: rgba(17, 24, 39, 0.5);
   backdrop-filter: blur(8px);
 }
 
+/* Text/content area inside each project card. */
 .project-body {
   padding: 1rem;
   display: grid;
   gap: 0.6rem;
   align-content: start;
+  grid-template-rows: auto auto 1fr auto;
 }
 
+/* Normal project card title. */
 .project-card h3 {
   margin: 0.1rem 0;
   font-size: 1.18rem;
 }
 
-.featured-card h3 {
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  line-height: 1.02;
-}
-
-.project-metric {
-  width: fit-content;
-  font-family: "JetBrains Mono", monospace;
-  color: #0f766e;
-  border: 1px solid rgba(15, 118, 110, 0.22);
-  border-radius: 999px;
-  background: rgba(20, 184, 166, 0.1);
-  padding: 0.28rem 0.55rem;
-  font-size: 0.78rem;
-}
-
+/* Project summary text. */
 .project-card p {
   margin: 0;
   color: var(--muted);
   line-height: 1.55;
 }
 
+/* Flexible row for technology tags inside project cards. */
 .tagline {
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
 }
 
+/* Reusable tag pill used on project cards and detail pages. */
 .tag {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.74rem;
@@ -472,106 +480,319 @@ h2 {
   padding: 0.22rem 0.5rem;
 }
 
+/* "View case study" style link inside project cards. */
 .case-link {
   width: fit-content;
-  border: 1px solid rgba(37, 99, 235, 0.24);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(37, 99, 235, 0.08);
-  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
   padding: 0.5rem 0.75rem;
   font-weight: 700;
   font-size: 0.9rem;
 }
 
+/* ==========================================================================
+   Experience, Skills, Journey, and Contact Sections
+   Shared panels and smaller cards for the lower content sections.
+   ========================================================================== */
 .panel {
   padding: clamp(1.1rem, 2vw, 2rem);
 }
 
-.experience-card,
-.skills-grid article,
+/* Inner cards used by skills and timeline content. */
+.skill-card,
 .timeline article {
-  border: 1px solid rgba(17, 24, 39, 0.1);
+  border: none;
   border-radius: 8px;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.58);
 }
 
-.experience-card h3 {
-  margin-top: 0;
-}
-
+/* Muted metadata such as dates and work arrangement. */
 .meta {
   color: var(--muted);
 }
 
-.skills-grid {
+/* Experience section: compact professional panel with role and impact columns. */
+.experience-panel {
+  position: relative;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: minmax(220px, 0.36fr) minmax(0, 0.64fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  align-items: start;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(236, 254, 255, 0.72) 48%, rgba(255, 247, 237, 0.82)),
+    var(--panel);
 }
 
-.skills-grid article {
-  border-left: 5px solid var(--teal);
+.experience-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--teal), var(--blue), var(--gold));
 }
 
-.skills-grid article:nth-child(2) {
-  border-left-color: var(--blue);
+.experience-head {
+  position: sticky;
+  top: 5.5rem;
 }
 
-.skills-grid article:nth-child(3) {
-  border-left-color: var(--gold);
+.experience-head h2 {
+  margin-bottom: 0.55rem;
 }
 
-.skills-grid article:nth-child(4) {
-  border-left-color: var(--rose);
+.experience-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(1rem, 2vw, 1.6rem);
+  border-left: 1px solid rgba(0, 139, 139, 0.32);
+  padding-left: clamp(1rem, 2vw, 1.6rem);
 }
 
-.skills-grid h3 {
-  margin: 0.1rem 0 0.5rem;
-  font-size: 1rem;
+.experience-role span {
+  width: fit-content;
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #0f766e;
+  border: 1px solid rgba(15, 118, 110, 0.22);
+  border-radius: 999px;
+  background: rgba(240, 253, 250, 0.84);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  padding: 0.28rem 0.55rem;
 }
 
-.skills-grid p {
+.experience-role h3 {
   margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  line-height: 1.12;
 }
 
-.timeline {
+.experience-lines {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
-.timeline article {
-  border-left: 5px solid var(--leaf);
+.experience-lines p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
+/* Combined skills and journey section with a darker technical surface. */
+.skills-journey {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  background:
+    linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.9)),
+    var(--ink);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.skills-column,
+.journey-column {
+  min-width: 0;
+}
+
+.skills-journey h2 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Skills board reads like a compact capability matrix. */
+.skills-board {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* Skill rows align the capability name beside the exact tool list. */
+.skill-card {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.75fr) minmax(0, 1.25fr);
+  gap: 1rem;
+  align-items: baseline;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  padding: 1rem 0;
+}
+
+/* Skill card heading. */
+.skill-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+}
+
+/* Skill card description text. */
+.skill-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+}
+
+/* Vertical journey timeline with year markers and clean dividers. */
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 0.1rem;
+  padding-left: 1.3rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.32rem;
+  top: 0.45rem;
+  bottom: 0.45rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Timeline item layout: year marker on the left, description on the right. */
+.timeline article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.6rem 1fr;
+  gap: 1.1rem;
+  align-items: start;
+  border-top: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.72rem 0 0.72rem 0;
+}
+
+.timeline article::before {
+  content: "";
+  position: absolute;
+  left: -1.1rem;
+  top: 1.13rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.08);
+}
+
+/* Timeline year label. */
 .timeline span {
   font-family: "JetBrains Mono", monospace;
   font-weight: 700;
-  color: #166534;
+  color: white;
 }
 
+/* Timeline description text. */
 .timeline p {
-  margin: 0.35rem 0 0;
-  color: var(--muted);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+}
+
+/* Contact section: direct contact details beside a working email form. */
+.contact {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(320px, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  align-items: start;
+  background:
+    linear-gradient(135deg, rgba(255, 247, 237, 0.88), rgba(238, 242, 255, 0.76) 54%, rgba(236, 254, 255, 0.72)),
+    var(--panel);
+}
+
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--rose), var(--gold), var(--teal));
+}
+
+.contact-info {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.contact-info h2 {
+  margin-bottom: 0.55rem;
 }
 
 .contact p {
-  margin: 0.35rem 0;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
+.contact a {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.85rem;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.92);
+  box-shadow: 0 22px 55px rgba(17, 24, 39, 0.18);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.38rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 0.78rem 0.85rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  font: inherit;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(153, 246, 228, 0.72);
+  outline: 2px solid rgba(153, 246, 228, 0.16);
+  outline-offset: 2px;
+}
+
+.contact-form button {
+  width: fit-content;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Default link color outside the navigation. */
 a {
   color: #1d4ed8;
 }
 
-/* Project detail page */
+/* ==========================================================================
+   Project Detail Page
+   Styles the separate case-study page rendered by project-detail.js.
+   ========================================================================== */
 .detail-main {
   gap: 1rem;
   padding-bottom: 4rem;
 }
 
+/* Hero section used on individual project detail pages. */
 .detail-hero {
   position: relative;
   min-height: min(720px, calc(84vh - 58px));
@@ -585,22 +806,26 @@ a {
   background: #0f172a;
 }
 
+/* Image treatment for project detail hero images. */
 .detail-bg {
   filter: saturate(1.06) contrast(1.02);
 }
 
+/* Darker project detail overlay to keep long titles readable. */
 .detail-overlay {
   background:
     linear-gradient(90deg, rgba(8, 13, 28, 0.94) 0%, rgba(8, 13, 28, 0.74) 44%, rgba(8, 13, 28, 0.3) 100%),
     linear-gradient(180deg, rgba(0, 139, 139, 0.08), rgba(17, 24, 39, 0.72));
 }
 
+/* Text container inside the detail hero. */
 .detail-content {
   position: relative;
   z-index: 1;
   width: min(780px, 100%);
 }
 
+/* Back link at the top of project detail pages. */
 .back-link {
   display: inline-block;
   color: rgba(255, 255, 255, 0.8);
@@ -608,6 +833,7 @@ a {
   text-decoration: none;
 }
 
+/* Large project title in the detail hero. */
 .detail-content h1 {
   margin: 0.8rem 0;
   color: white;
@@ -616,6 +842,7 @@ a {
   max-width: 12ch;
 }
 
+/* Highlight box in the detail hero that shows project metric/stack information. */
 .detail-metric {
   margin-top: clamp(1.5rem, 3vw, 2.4rem);
   width: min(620px, 100%);
@@ -627,12 +854,14 @@ a {
   backdrop-filter: blur(12px);
 }
 
+/* Small label text inside the detail metric box. */
 .detail-metric span {
   display: block;
   font-family: "JetBrains Mono", monospace;
   color: #99f6e4;
 }
 
+/* Main value text inside the detail metric box. */
 .detail-metric strong {
   display: block;
   margin-top: 0.35rem;
@@ -640,12 +869,14 @@ a {
   line-height: 1.15;
 }
 
+/* Three-column case-study panel grid. */
 .case-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
+/* Individual case-study panel card. */
 .case-panel {
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 8px;
@@ -655,141 +886,198 @@ a {
   padding: clamp(1.1rem, 2vw, 2rem);
 }
 
+/* Wider case-study panels span two grid columns. */
 .case-panel.wide {
   grid-column: span 2;
 }
 
+/* Readable body text for case-study paragraphs and bullet items. */
 .case-panel p,
 .case-panel li {
   color: var(--muted);
   line-height: 1.7;
 }
 
+/* Bullet-list alignment inside case-study panels. */
 .case-panel ul {
   margin: 0;
   padding-left: 1.1rem;
 }
 
+/* Flexible tag row on the project detail page. */
 .detail-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
+/* Special outcome panel with a tinted accent background. */
 .accent-panel {
   background: linear-gradient(135deg, rgba(0, 139, 139, 0.13), rgba(245, 158, 11, 0.16)), var(--panel);
 }
 
+/* Portfolio note panel with a stronger left border. */
 .honest-panel {
   border-left: 7px solid var(--gold);
 }
 
+/* ==========================================================================
+   Responsive Layout: Tablets and Small Laptops
+   Adjusts major grids and hero heights below 1120px.
+   ========================================================================== */
 @media (max-width: 1120px) {
+  /* Keeps hero sections tall enough after the layout starts compressing. */
   .hero,
   .detail-hero {
     min-height: 720px;
   }
 
-  .project-card,
-  .project-card.featured-card {
+  /* Project cards become two per row. */
+  .project-card {
     grid-column: span 6;
-    grid-template-columns: 1fr;
-    grid-template-rows: 240px auto;
+    grid-template-rows: 220px 1fr;
   }
 
-  .skills-grid,
-  .timeline,
+  /* Multi-column content sections collapse from 3 columns down to 2 columns. */
   .case-grid,
   .about-profile {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Wide case panels still span the full two-column row at this width. */
   .case-panel.wide {
     grid-column: span 2;
   }
 }
 
+/* ==========================================================================
+   Responsive Layout: Tablets and Large Phones
+   Stacks most content into one column below 900px.
+   ========================================================================== */
 @media (max-width: 900px) {
+  /* Slightly shorter home hero for smaller screens. */
   .hero {
     min-height: 660px;
   }
 
+  /* Maintains a compact headline width on tablet/mobile. */
   .hero-copy h1 {
     max-width: 12ch;
   }
 
+  /* Shorter project detail hero on smaller screens. */
   .detail-hero {
     min-height: 620px;
   }
 
-  .metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
+  /* Project section header stacks title above filters. */
   .section-head {
     align-items: flex-start;
     flex-direction: column;
   }
 
+  /* Filter chips align to the left once stacked under the heading. */
   .filters {
     justify-content: flex-start;
   }
 
-  .skills-grid,
-  .timeline,
+  /* Main content grids collapse to one column for narrow screens. */
+  .experience-panel,
+  .experience-card,
+  .skills-journey,
+  .contact,
   .case-grid,
   .about-profile {
     grid-template-columns: 1fr;
   }
 
+  .experience-head {
+    position: static;
+  }
+
+  .experience-card {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+
+  /* Gives the portrait image enough vertical presence after stacking. */
   .profile-image {
     min-height: 520px;
   }
 
-  .project-card,
-  .project-card.featured-card {
+  /* Project cards become full-width stacked cards. */
+  .project-card {
     grid-column: span 12;
-    grid-template-columns: 1fr;
   }
 
+  /* Wide case panels become normal single-column panels. */
   .case-panel.wide {
     grid-column: span 1;
   }
 
+  /* Allows header navigation to wrap instead of overflowing. */
   nav {
     flex-wrap: wrap;
     justify-content: flex-end;
   }
 }
 
+/* ==========================================================================
+   Responsive Layout: Phones
+   Final adjustments for very narrow screens below 620px.
+   ========================================================================== */
 @media (max-width: 620px) {
+  /* Header stacks brand above navigation. */
   .topbar {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.7rem;
   }
 
+  /* Phone navigation aligns from the left and uses tighter spacing. */
   nav {
     justify-content: flex-start;
     gap: 0.75rem;
   }
 
+  /* Reduces the home hero headline so it fits comfortably on phones. */
   .hero-copy h1 {
     font-size: 2.35rem;
   }
 
-  .metrics {
+  /* Timeline items stack year above description on narrow phones. */
+  .timeline article {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  /* Skill rows stack title above tool list on narrow phones. */
+  .skill-card {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .contact {
     grid-template-columns: 1fr;
   }
 
+  .contact-form button {
+    width: 100%;
+  }
+
+  /* Slightly shorter portrait image on phones. */
   .profile-image {
     min-height: 420px;
   }
 
+  /* Shorter project card image area on phones. */
   .project-card {
     grid-template-rows: 190px auto;
   }
 
+  /* Reduces project detail titles for phone screens. */
   .detail-content h1 {
     font-size: 2.35rem;
   }

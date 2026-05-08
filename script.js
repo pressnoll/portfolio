@@ -25,9 +25,9 @@ function renderProjects() {
     ? PROJECTS
     : PROJECTS.filter((project) => project.category === activeCategory);
 
-  filtered.forEach((project, index) => {
+  filtered.forEach((project) => {
     const card = document.createElement("a");
-    card.className = `project-card${index === 0 && activeCategory === "All" ? " featured-card" : ""}`;
+    card.className = "project-card";
     card.href = `project.html?id=${project.id}`;
     const tags = project.stack.map((tag) => `<span class="tag">${tag}</span>`).join("");
 
@@ -37,7 +37,6 @@ function renderProjects() {
         <span>${project.category}</span>
       </div>
       <div class="project-body">
-        <p class="project-metric">${project.metric}</p>
         <h3>${project.name}</h3>
         <p>${project.blurb}</p>
         <div class="tagline">${tags}</div>

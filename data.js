@@ -7,7 +7,7 @@ const PROJECTS = [
     stack: ["YOLOv8", "MediaPipe", "OpenCV", "Python", "State Machines"],
     image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=1200&q=80",
     link: "https://github.com/pressnoll/neurofocus",
-    metric: "Real-time CV",
+
     role: "Designed the detection loop, session logic, warning states, and analytics logging.",
     problem:
       "Deep work breaks down when distractions are invisible until they have already stolen attention. NeuroFocus explores how computer vision can make focus state measurable without requiring manual tracking.",
