@@ -87,7 +87,7 @@ const PROJECTS = [
     blurb: "YOLOv12 pipeline for tomato leaf disease detection from raw agricultural imagery.",
     stack: ["YOLOv12", "OpenCV", "Python", "Agriculture AI"],
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80",
-    link: "https://github.com/pressnoll",
+    link: "https://github.com/pressnoll/Tomato-disease-",
     metric: "Disease detection",
     role: "Prepared the model direction and training pipeline for crop disease classification.",
     problem:
