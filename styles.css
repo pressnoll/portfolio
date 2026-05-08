@@ -778,9 +778,78 @@ h2 {
   cursor: pointer;
 }
 
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.form-status {
+  min-height: 1.4rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.form-status.is-success {
+  color: #99f6e4;
+}
+
+.form-status.is-error {
+  color: #fecdd3;
+}
+
+.form-status.is-pending {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 /* Default link color outside the navigation. */
 a {
   color: #1d4ed8;
+}
+
+/* ==========================================================================
+   Thank You Page
+   Branded page shown after a successful contact form submission.
+   ========================================================================== */
+.thanks-main {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  align-items: center;
+}
+
+.thanks-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.4rem, 4vw, 4rem);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(17, 24, 39, 0.94), rgba(31, 41, 55, 0.88)),
+    var(--ink);
+  box-shadow: var(--shadow);
+  color: white;
+}
+
+.thanks-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--rose), var(--gold), var(--teal));
+}
+
+.thanks-panel h1 {
+  max-width: 11ch;
+  margin: 0.8rem 0;
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: 1;
+}
+
+.thanks-panel p:not(.eyebrow) {
+  max-width: 52ch;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
 }
 
 /* ==========================================================================

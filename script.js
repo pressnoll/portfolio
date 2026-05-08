@@ -49,3 +49,42 @@ function renderProjects() {
 
 renderFilters();
 renderProjects();
+
+const contactForm = document.querySelector(".contact-form");
+const formStatus = document.querySelector(".form-status");
+
+if (contactForm && formStatus) {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton = contactForm.querySelector("button[type='submit']");
+    const formData = new FormData(contactForm);
+
+    formStatus.className = "form-status is-pending";
+    formStatus.textContent = "Sending message...";
+    submitButton.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Message could not be sent.");
+      }
+
+      contactForm.reset();
+      formStatus.className = "form-status is-success";
+      formStatus.textContent = "Message delivered. I will get back to you soon.";
+    } catch (error) {
+      formStatus.className = "form-status is-error";
+      formStatus.textContent = "Something went wrong. Please email me directly instead.";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+}
