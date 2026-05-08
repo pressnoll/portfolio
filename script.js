@@ -79,7 +79,11 @@ if (contactForm && formStatus) {
 
       contactForm.reset();
       formStatus.className = "form-status is-success";
-      formStatus.textContent = "Message delivered. I will get back to you soon.";
+      formStatus.textContent = "Delivered";
+      setTimeout(() => {
+        formStatus.className = "form-status";
+        formStatus.textContent = "";
+      }, 2600);
     } catch (error) {
       formStatus.className = "form-status is-error";
       formStatus.textContent = "Something went wrong. Please email me directly instead.";
