@@ -789,6 +789,8 @@ h2 {
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.9rem;
   line-height: 1.5;
+  opacity: 1;
+  transition: opacity 400ms ease;
 }
 
 .form-status.is-success {
@@ -801,6 +803,10 @@ h2 {
 
 .form-status.is-pending {
   color: rgba(255, 255, 255, 0.72);
+}
+
+.form-status.is-fading {
+  opacity: 0;
 }
 
 /* Default link color outside the navigation. */
@@ -1103,12 +1109,24 @@ a {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.7rem;
+    padding: 0.85rem 4vw;
+  }
+
+  /* The desktop brand shift is reset on phones so the toolbar stays inside the viewport. */
+  .brand {
+    transform: none;
   }
 
   /* Phone navigation aligns from the left and uses tighter spacing. */
   nav {
+    width: 100%;
+    flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 0.75rem;
+    gap: 0.55rem 0.75rem;
+  }
+
+  nav a {
+    font-size: 0.86rem;
   }
 
   /* Reduces the home hero headline so it fits comfortably on phones. */

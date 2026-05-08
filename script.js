@@ -81,9 +81,12 @@ if (contactForm && formStatus) {
       formStatus.className = "form-status is-success";
       formStatus.textContent = "Delivered";
       setTimeout(() => {
+        formStatus.classList.add("is-fading");
+      }, 650);
+      setTimeout(() => {
         formStatus.className = "form-status";
         formStatus.textContent = "";
-      }, 2600);
+      }, 1100);
     } catch (error) {
       formStatus.className = "form-status is-error";
       formStatus.textContent = "Something went wrong. Please email me directly instead.";
