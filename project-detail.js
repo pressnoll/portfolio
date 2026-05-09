@@ -15,7 +15,6 @@ detailRoot.innerHTML = `
     <div class="detail-overlay"></div>
     <div class="detail-content">
       <a class="back-link" href="index.html#projects">Back to projects</a>
-      <p class="eyebrow">${project.category}</p>
       <h1>${project.name}</h1>
       <p class="summary">${project.blurb}</p>
       <div class="actions">
