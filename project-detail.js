@@ -13,8 +13,10 @@ detailRoot.innerHTML = `
   <section class="detail-hero page-section">
     <img class="detail-bg" src="${project.image}" alt="${project.name} project visual">
     <div class="detail-overlay"></div>
+    <a class="back-link" href="index.html#projects" aria-label="Back to projects" title="Back to projects">
+      <span aria-hidden="true">&larr;</span>
+    </a>
     <div class="detail-content">
-      <a class="back-link" href="index.html#projects">Back to projects</a>
       <h1>${project.name}</h1>
       <p class="summary">${project.blurb}</p>
       <div class="actions">

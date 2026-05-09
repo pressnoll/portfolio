@@ -884,12 +884,34 @@ a {
   width: min(780px, 100%);
 }
 
-/* Back link at the top of project detail pages. */
+/* Icon back button at the top of project detail pages. */
 .back-link {
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1rem;
+  position: absolute;
+  top: clamp(1rem, 2.5vw, 1.5rem);
+  left: clamp(1rem, 2.5vw, 1.5rem);
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 32px rgba(8, 13, 28, 0.22);
   text-decoration: none;
+  backdrop-filter: blur(12px);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.back-link:hover {
+  transform: translateX(-2px);
+  background: white;
+}
+
+.back-link span {
+  font-size: 1.45rem;
+  line-height: 1;
 }
 
 /* Large project title in the detail hero. */
