@@ -527,14 +527,6 @@ h2 {
     var(--panel);
 }
 
-.experience-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 6px;
-  background: linear-gradient(90deg, var(--teal), var(--blue), var(--gold));
-}
-
 .experience-head {
   position: sticky;
   top: 5.5rem;
@@ -705,14 +697,6 @@ h2 {
   background:
     linear-gradient(135deg, rgba(255, 247, 237, 0.88), rgba(238, 242, 255, 0.76) 54%, rgba(236, 254, 255, 0.72)),
     var(--panel);
-}
-
-.contact::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 6px;
-  background: linear-gradient(90deg, var(--rose), var(--gold), var(--teal));
 }
 
 .contact-info {
