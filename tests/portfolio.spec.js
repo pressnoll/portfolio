@@ -49,7 +49,7 @@ test('homepage and project stories render at desktop and mobile widths',async({p
   if(width===1440||width===390)await page.screenshot({path:`test-results/home-${width}.png`,fullPage:true});
  }
  for(const id of ['jai','neurofocus','grainguard','jconvert','jenom']){
-  await page.goto(`/case-study.html?project=${id}`);await expect(page.locator('h1')).toBeVisible();await expect(page.getByRole('heading',{name:'Current scope'})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.goto(`/case-study.html?project=${id}`);await expect(page.locator('h1')).toBeVisible();await expect(page.getByRole('heading',{name:id==='grainguard'?'From detection to decisions':'Current scope'})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  }
  await page.goto('/case-study.html?project=unknown');await expect(page.getByRole('heading',{name:'Project not found.'})).toBeVisible();expect(errors).toEqual([]);
 });
