@@ -16,11 +16,11 @@ test('contact form handles acceptance and failure without losing messages',async
  await expect(page.getByRole('link',{name:'Message on WhatsApp'})).toHaveAttribute('href',/^https:\/\/wa.me\/2348129240412\?text=/);
  expect(await page.locator('body').innerText()).not.toContain('\u2014');
 });
-test('AI/ML positioning and motion run, pause and respect system preference',async({page})=>{
+test('AI/ML positioning and motion run and respect system preference',async({page})=>{
  await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');
  await expect(page).toHaveTitle('Temple Gideon - AI/ML Engineer');
  await expect(page.locator('.hero-bottom>p')).toContainText('I build AI & ML systems.');
- await expect(page.getByRole('button',{name:'Pause animations'})).toBeVisible();
+ await expect(page.locator('.motion-toggle')).toHaveCount(0);
  await page.locator('.signal-panel').scrollIntoViewIfNeeded();
  await expect.poll(()=>page.locator('.travelling-signal').first().evaluate(el=>getComputedStyle(el).animationPlayState)).toBe('running');
  const before=await page.locator('.travelling-signal').first().evaluate(el=>getComputedStyle(el).strokeDashoffset);
@@ -31,14 +31,8 @@ test('AI/ML positioning and motion run, pause and respect system preference',asy
  await expect.poll(()=>page.locator('.reading-progress').evaluate(el=>Number(el.style.getPropertyValue('--read')))).toBeGreaterThan(0);
  await page.locator('.journey-list li').last().scrollIntoViewIfNeeded();
  await expect.poll(()=>page.locator('.journey-list').evaluate(el=>Number(el.style.getPropertyValue('--journey-progress')))).toBeGreaterThan(0);
- await page.getByRole('button',{name:'Pause animations'}).click();
- await expect(page.locator('.reading-progress')).toBeHidden();
- await expect.poll(()=>page.locator('.audio-equalizer i').first().evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
- await expect.poll(()=>page.locator('.asterisk').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
- await page.reload();await expect(page.getByRole('button',{name:'Enable animations'})).toBeVisible();
- await page.getByRole('button',{name:'Enable animations'}).click();
  await page.emulateMedia({reducedMotion:'reduce'});
- await expect(page.getByRole('button',{name:'Motion disabled by system preference'})).toBeDisabled();
+ await expect(page.locator('.reading-progress')).toBeHidden();
  await expect.poll(()=>page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);
 });
 test('homepage and project stories render at desktop and mobile widths',async({page})=>{
