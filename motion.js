@@ -3,30 +3,14 @@ import './motion-extra.css';
 // Progressive enhancement: content remains readable if motion is unavailable.
 const preference = matchMedia('(prefers-reduced-motion: reduce)');
 const animations = new Set();
-let paused = false;
-try { paused = sessionStorage.getItem('portfolio-motion') === 'paused'; } catch {}
-const button = document.createElement('button');
-button.className = 'motion-toggle';
-button.type = 'button';
-document.body.append(button);
 function sync() {
-  const off = preference.matches || paused;
-  document.documentElement.classList.toggle('motion-off', off);
-  button.textContent = preference.matches ? 'Reduced motion' : paused ? 'Play motion' : 'Pause motion';
-  button.setAttribute('aria-label', preference.matches ? 'Motion disabled by system preference' : paused ? 'Enable animations' : 'Pause animations');
-  button.setAttribute('aria-pressed', String(off));
-  button.disabled = preference.matches;
-  if (off) { animations.forEach(a => a.cancel()); animations.clear(); }
+  document.documentElement.classList.toggle('motion-off', preference.matches);
+  if (preference.matches) { animations.forEach(a => a.cancel()); animations.clear(); }
 }
-button.addEventListener('click', () => {
-  paused = !paused;
-  try { sessionStorage.setItem('portfolio-motion', paused ? 'paused' : 'playing'); } catch {}
-  sync();
-});
 preference.addEventListener('change', sync);
 sync();
 function animate(element, frames, options = {}) {
-  if (!element || preference.matches || paused) return;
+  if (!element || preference.matches) return;
   const animation = element.animate(frames, {duration:850, easing:'cubic-bezier(.2,.75,.2,1)', ...options});
   animations.add(animation);
   animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
@@ -71,12 +55,12 @@ function scheduleScroll(){if(!frame)frame=requestAnimationFrame(updateScroll);}
 addEventListener('scroll',scheduleScroll,{passive:true});addEventListener('resize',scheduleScroll);updateScroll();
 // This equalizer decorates the labeled illustration; it is not live audio.
 document.querySelectorAll('.convert-art .mini-drop b').forEach(el=>{el.innerHTML='<span class="audio-equalizer" aria-hidden="true">'+Array.from({length:13},(_,i)=>`<i style="--level:${[.3,.5,.8,.45,1,.65,.4,.9,.55,.75,.35,.6,.25][i]};--delay:${i*-0.13}s"></i>`).join('')+'</span>';});
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){document.querySelectorAll('.send-message,.whatsapp-link,.contact-link').forEach(el=>{el.classList.add('magnetic-link');el.addEventListener('pointermove',e=>{if(preference.matches||paused)return;const rect=el.getBoundingClientRect();el.style.setProperty('--magnet-x',`${(e.clientX-rect.left-rect.width/2)*.07}px`);el.style.setProperty('--magnet-y',`${(e.clientY-rect.top-rect.height/2)*.12}px`);});el.addEventListener('pointerleave',()=>{el.style.setProperty('--magnet-x','0px');el.style.setProperty('--magnet-y','0px');});});}
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){document.querySelectorAll('.send-message,.whatsapp-link,.contact-link').forEach(el=>{el.classList.add('magnetic-link');el.addEventListener('pointermove',e=>{if(preference.matches)return;const rect=el.getBoundingClientRect();el.style.setProperty('--magnet-x',`${(e.clientX-rect.left-rect.width/2)*.07}px`);el.style.setProperty('--magnet-y',`${(e.clientY-rect.top-rect.height/2)*.12}px`);});el.addEventListener('pointerleave',()=>{el.style.setProperty('--magnet-x','0px');el.style.setProperty('--magnet-y','0px');});});}
 // Pointer motion stays restrained and only runs for precise pointing devices.
 if(matchMedia('(hover:hover) and (pointer:fine)').matches) {
   document.querySelectorAll('.project-art').forEach(panel=>{
     panel.addEventListener('pointermove',event=>{
-      if(preference.matches||paused)return;
+      if(preference.matches)return;
       const rect=panel.getBoundingClientRect();
       panel.style.setProperty('--pointer-x',`${((event.clientX-rect.left)/rect.width-.5)*10}px`);
       panel.style.setProperty('--pointer-y',`${((event.clientY-rect.top)/rect.height-.5)*8}px`);
