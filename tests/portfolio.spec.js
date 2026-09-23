@@ -59,3 +59,25 @@ test('keyboard access, copy feedback and reduced motion',async({page,context})=>
  expect(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto');
  await page.getByRole('link',{name:'Explore Jconvert',exact:false}).click();await expect(page).toHaveURL(/project=jconvert/);await expect(page.locator('h1')).toHaveText('Jconvert');
 });
+
+test('CV navigation opens preview and downloads the supplied PDF',async({page})=>{
+ await page.goto('/');
+ await page.getByRole('navigation').getByRole('link',{name:'CV',exact:true}).click();
+ await expect(page).toHaveURL(/\/cv.html$/);
+ await expect(page.getByRole('heading',{name:'My CV.'})).toBeVisible();
+ await expect(page.locator('.cv-preview')).toHaveAttribute('data','/Temple-Gideon-CV.pdf#view=FitH');
+ const pdf=await page.request.get('/Temple-Gideon-CV.pdf');
+ expect(pdf.ok()).toBe(true);
+ expect((await pdf.body()).subarray(0,5).toString()).toBe('%PDF-');
+ const downloadPromise=page.waitForEvent('download');
+ await page.getByRole('link',{name:'Download CV'}).click();
+ const download=await downloadPromise;
+ expect(download.suggestedFilename()).toBe('Temple-Gideon-CV.pdf');
+ expect(await download.failure()).toBeNull();
+ for(const width of [1440,390,320]){
+  await page.setViewportSize({width,height:900});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await expect(page.getByRole('navigation').getByRole('link',{name:'CV',exact:true})).toBeVisible();
+ }
+ await page.screenshot({path:'test-results/cv-mobile.png',fullPage:true});
+});
